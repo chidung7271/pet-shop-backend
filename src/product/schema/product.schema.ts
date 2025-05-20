@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document } from "mongoose";
+import { Document, HydratedDocument } from "mongoose";
 
 @Schema({
     timestamps: true,
@@ -18,16 +18,16 @@ export class ProductSchemaClass extends Document {
     category: string;
 
     @Prop()
-    quanlity: number;
+    quantity: number;
 
     @Prop()
     price: number;
 
     @Prop()
-    supplier: string;
+    des: string;
 
     @Prop()
-    des: string;
+    imageUrl: string;
     
     @Prop({
         get: (val: Date) => {
@@ -46,3 +46,4 @@ export class ProductSchemaClass extends Document {
 
 }
 export const ProductSchema = SchemaFactory.createForClass(ProductSchemaClass);
+export type Product = HydratedDocument<ProductSchemaClass>;

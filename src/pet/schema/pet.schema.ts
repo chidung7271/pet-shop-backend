@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document, Schema as MongooseSchema } from "mongoose";
+import { Document, HydratedDocument, Schema as MongooseSchema } from "mongoose";
 
 @Schema({
     timestamps: true,
@@ -12,7 +12,7 @@ export class PetSchemaClass extends Document {
     @Prop({
         type: MongooseSchema.Types.ObjectId, ref: 'Customer', required: true
     })
-    ownerId: MongooseSchema.Types.ObjectId;
+    ownerId: string;
 
     @Prop({
         required: true,
@@ -23,14 +23,19 @@ export class PetSchemaClass extends Document {
     type: string;
 
     @Prop()
+    breed: string;
+
+    @Prop()
     weight: number;
 
     @Prop()
     des: string;
 
     @Prop()
-    image: string;
+    isActive: boolean;
 
+    @Prop()
+    image: string;
     @Prop({
         get: (val: Date) => {
             return val
@@ -48,3 +53,4 @@ export class PetSchemaClass extends Document {
 
 }
 export const PetSchema = SchemaFactory.createForClass(PetSchemaClass);
+export type Pet = HydratedDocument<PetSchemaClass>;

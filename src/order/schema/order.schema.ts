@@ -1,40 +1,40 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document, Schema as MongooseSchema } from "mongoose";
+import { Document, HydratedDocument, Schema as MongooseSchema } from "mongoose";
 
 @Schema({
+    collection: 'orders',
     timestamps: true,
     toJSON: {
         getters: true,
+        virtuals: true,
+        transform: (doc, ret) => {
+            ret.id = ret._id;
+            delete ret._id;
+            delete ret.__v;
+            return ret;
+        }
     },
 })
 export class OrderSchemaClass extends Document {
     @Prop({
-        type: MongooseSchema.Types.ObjectId, ref: 'Customer', required: false
+        type: MongooseSchema.Types.ObjectId,
+        ref: 'Customer',
+        required: false
     })
     customerId: string;
 
     @Prop({
-        type: [
-            {
-                type: { type: String, enum: ['product', 'service'], required: true },
-                itemId: { type: MongooseSchema.Types.ObjectId, required: true },
-                quantity: { type: Number, required: true },
-                pet: { type: MongooseSchema.Types.ObjectId, ref: 'Pet' },
-            },
-        ],
-        required: true,
+        type: MongooseSchema.Types.ObjectId,
+        ref: 'Cart',
+        required: true
     })
-    items: {
-        type: 'product' | 'service';
-        itemId: string;
-        quantity: number;
-        pet?: string;
-    }[];
+    cartId: string;
 
-    @Prop()
-    totalAmount: number;
-
-    @Prop()
+    @Prop({
+        type: String,
+        enum: ['pending', 'completed', 'cancelled'],
+        default: 'pending'
+    })
     status: string;
 
     @Prop({
@@ -51,6 +51,7 @@ export class OrderSchemaClass extends Document {
         },
     })
     readonly createdAt: Date;
-
 }
+
 export const OrderSchema = SchemaFactory.createForClass(OrderSchemaClass);
+export type Order = HydratedDocument<OrderSchemaClass>;

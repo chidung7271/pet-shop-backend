@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document, Schema as MongooseSchema } from "mongoose";
+import { Document, HydratedDocument, Schema as MongooseSchema } from "mongoose";
+import { CustomerSchemaClass } from "../../customer/schema/customer.schema";
 import { CartItemSchema, CartItemSchemaClass } from "./cartitem.schema";
 
 @Schema({
@@ -12,15 +13,16 @@ export class CartSchemaClass extends Document {
     @Prop({
         type: MongooseSchema.Types.ObjectId, ref: 'Customer', required: false
     })
-    customerId: string;
+    customerId: CustomerSchemaClass;
 
     @Prop({
         type:[CartItemSchema]
     })
     items: CartItemSchemaClass[];
-    @Prop()
-    price: number;
 
+    @Prop()
+    totalAmount: number;
+    
     @Prop({
         get: (val: Date) => {
             return val
@@ -38,3 +40,4 @@ export class CartSchemaClass extends Document {
 
 }
 export const CartSchema = SchemaFactory.createForClass(CartSchemaClass);
+export type Cart = HydratedDocument<CartSchemaClass>;

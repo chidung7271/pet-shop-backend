@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document } from "mongoose";
+import { Document, HydratedDocument } from "mongoose";
 
 @Schema({
     timestamps: true,
@@ -31,6 +31,12 @@ export class CustomerSchemaClass extends Document {
     gender: string;
 
     @Prop({
+        type: Boolean,
+    })
+    isActive: boolean;
+    
+    
+    @Prop({
         get: (val: Date) => {
             return val
                 ? val.toLocaleString('vi-VN', {
@@ -47,3 +53,4 @@ export class CustomerSchemaClass extends Document {
 
 }
 export const CustomerSchema = SchemaFactory.createForClass(CustomerSchemaClass);
+export type Customer = HydratedDocument<CustomerSchemaClass>;

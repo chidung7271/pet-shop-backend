@@ -7,7 +7,7 @@ import { PetSchema } from './schema/pet.schema';
 @Module({
   imports:[
       MongooseModule.forFeature([
-            { name: 'Customer', schema: PetSchema },
+            { name: 'Pet', schema: PetSchema },
           ]),
     ],
   controllers: [PetController],

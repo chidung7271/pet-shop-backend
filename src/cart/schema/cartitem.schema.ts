@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document, Schema as MongooseSchema } from "mongoose";
+import { Document, HydratedDocument, Schema as MongooseSchema } from "mongoose";
 
 @Schema({
     timestamps: true,
@@ -17,7 +17,10 @@ export class CartItemSchemaClass extends Document {
     @Prop({ type: Number, required: true })
     quantity: number;
 
+    @Prop({ type: Number, required: true })
+    price: number; // Giá của sản phẩm hoặc dịch vụ
     @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Pet' })
     pet?: string; // Nếu là dịch vụ thì có thể liên quan đến thú cưng
 }
 export const CartItemSchema = SchemaFactory.createForClass(CartItemSchemaClass);
+export type Cart = HydratedDocument<CartItemSchemaClass>;

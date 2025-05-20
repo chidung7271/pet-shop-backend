@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt';
@@ -37,18 +37,23 @@ export class AuthService {
             if (isMatch) {
                 return user;
             }
-            else {
-                throw new NotFoundException('Invalid password');
-            }
         }
-        else{ throw new NotFoundException('User not found');}
+        return null;
+
     }
 
     async login(data: LoginDto): Promise<LoginResponseDto> {
         const user = await this.validateUser(data.username, data.password);
+        if (!user) {
+            return {
+                success : false,
+                message : "Invalid username or password",
+            }
+        }
         const payload = { username: user.username, sub: user._id };
         const accessToken = this.jwtService.sign(payload);
         return {
+            success : true,
             accessToken : accessToken,
             message : "Login successful",
         }

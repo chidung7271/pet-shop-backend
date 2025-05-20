@@ -1,1 +1,6 @@
-export class CreateOrderDto {}
+
+export class CreateOrderDto {
+    customerId: string;
+    cartId: string;
+    status: string;
+}

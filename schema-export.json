@@ -1,0 +1,234 @@
+{
+  "schemas": [
+    {
+      "name": "Order",
+      "fields": [
+        {
+          "name": "customerId",
+          "type": "ObjectId",
+          "required": false,
+          "ref": "Customer"
+        },
+        {
+          "name": "cart",
+          "type": "ObjectId",
+          "required": false,
+          "ref": "Cart"
+        },
+        {
+          "name": "status",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "required": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "Customer",
+      "fields": [
+        {
+          "name": "name",
+          "type": "String",
+          "required": true
+        },
+        {
+          "name": "email",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "phone",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "gender",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "required": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "Cart",
+      "fields": [
+        {
+          "name": "customerId",
+          "type": "ObjectId",
+          "required": false,
+          "ref": "Customer"
+        },
+        {
+          "name": "items",
+          "type": "Array",
+          "required": false
+        },
+        {
+          "name": "totalAmount",
+          "type": "Number",
+          "required": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "required": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "Product",
+      "fields": [
+        {
+          "name": "name",
+          "type": "String",
+          "required": true
+        },
+        {
+          "name": "category",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "quanlity",
+          "type": "Number",
+          "required": false
+        },
+        {
+          "name": "price",
+          "type": "Number",
+          "required": false
+        },
+        {
+          "name": "supplier",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "des",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "imageUrl",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "required": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "Pet",
+      "fields": [
+        {
+          "name": "ownerId",
+          "type": "ObjectId",
+          "required": true,
+          "ref": "Customer"
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "required": true
+        },
+        {
+          "name": "type",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "breed",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "weight",
+          "type": "Number",
+          "required": false
+        },
+        {
+          "name": "des",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "image",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "required": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "Service",
+      "fields": [
+        {
+          "name": "name",
+          "type": "String",
+          "required": true
+        },
+        {
+          "name": "des",
+          "type": "String",
+          "required": false
+        },
+        {
+          "name": "price",
+          "type": "Number",
+          "required": false
+        },
+        {
+          "name": "createdAt",
+          "type": "Date",
+          "required": false
+        },
+        {
+          "name": "updatedAt",
+          "type": "Date",
+          "required": false
+        }
+      ]
+    }
+  ],
+  "createdAt": "2025-04-22T02:49:44.250Z"
+}

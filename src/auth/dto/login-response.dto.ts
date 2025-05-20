@@ -1,4 +1,5 @@
 export class LoginResponseDto {
-    accessToken: string;
-    message?: string;
+    success: boolean;
+    accessToken?: string;
+    message: string;
 }
