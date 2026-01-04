@@ -15,10 +15,16 @@ export class ServiceSchemaClass extends Document {
     name: string;
 
     @Prop()
+    category: string;
+
+    @Prop()
     des: string;
 
     @Prop()
     price: number;
+
+    @Prop({ default: 0 })
+    quantity: number;
 
     @Prop({
         get: (val: Date) => {

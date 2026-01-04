@@ -17,7 +17,7 @@ export class ProductSchemaClass extends Document {
     @Prop()
     category: string;
 
-    @Prop()
+    @Prop({ default: 0 })
     quantity: number;
 
     @Prop()

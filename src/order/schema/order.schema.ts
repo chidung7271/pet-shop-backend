@@ -33,7 +33,7 @@ export class OrderSchemaClass extends Document {
     @Prop({
         type: String,
         enum: ['pending', 'completed', 'cancelled'],
-        default: 'pending'
+        default: 'completed'
     })
     status: string;
 

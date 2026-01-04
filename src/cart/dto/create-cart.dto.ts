@@ -24,8 +24,8 @@ export class CartItemDto {
 
 export class CreateCartDto {
     @IsMongoId()
-    @IsNotEmpty()
-    customerId: string;
+    @IsOptional()
+    customerId?: string;
 
     @IsArray()
     @ValidateNested({ each: true })

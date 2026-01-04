@@ -4,6 +4,7 @@ import { LoginResponseDto } from './dto/login-response.dto';
 import { LoginDto } from './dto/login.dto';
 import { RegisterResponseDto } from './dto/register-response.dto';
 import { RegisterDto } from './dto/register.dto';
+import { VerifyRegisterDto } from './dto/verify-register.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -17,5 +18,15 @@ export class AuthController {
   @Post('register')
   async register(@Body()registerDto: RegisterDto): Promise<RegisterResponseDto>{
     return this.authService.register(registerDto);
+  }
+
+  @Post('register/verify')
+  async verifyRegister(@Body() verifyDto: VerifyRegisterDto): Promise<RegisterResponseDto> {
+    return this.authService.verifyRegister(verifyDto);
+  }
+
+  @Post('test-email')
+  async testEmail(): Promise<{ success: boolean; message: string }> {
+    return this.authService.testEmail();
   }
 }
