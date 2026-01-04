@@ -176,7 +176,7 @@ export class InventoryService {
     async getLowStockAlerts(threshold: number = 10): Promise<InventoryAlertDto[]> {
         const alerts: InventoryAlertDto[] = [];
 
-        // Kiểm tra products
+        // Chỉ kiểm tra products (dịch vụ không cần cảnh báo hết hàng)
         const lowStockProducts = await this.productModel
             .find({ quantity: { $lte: threshold } })
             .exec();
@@ -189,22 +189,6 @@ export class InventoryService {
                 currentQuantity: product.quantity || 0,
                 minThreshold: threshold,
                 itemType: 'product',
-            });
-        }
-
-        // Kiểm tra services (nếu có quantity)
-        const lowStockServices = await this.serviceModel
-            .find({ quantity: { $lte: threshold } })
-            .exec();
-
-        for (const service of lowStockServices) {
-            alerts.push({
-                id: (service._id as any).toString(),
-                name: service.name,
-                category: service.category || 'N/A',
-                currentQuantity: service.quantity || 0,
-                minThreshold: threshold,
-                itemType: 'service',
             });
         }
 
